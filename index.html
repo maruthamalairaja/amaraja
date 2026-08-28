@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coming Soon</title>
+<style>
+  /* ============================================================
+     CONFIGURE HERE — change these values to match your brand
+     ============================================================ */
+  :root{
+    --company-name: "amaraja.in";
+    --bg: #1A0906;          /* page background */
+    --bg-glow-1: #FF4D2E;   /* background glow color, top */
+    --bg-glow-2: #FF8A00;   /* background glow color, bottom */
+    --fg: #FFF1E8;          /* main text color */
+    --muted: #C98F73;       /* secondary text color */
+    --accent: #FF6A2B;      /* pulse / line accent color */
+    --font-display: 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html,body{
+    height:100%;
+    background:
+      radial-gradient(circle at 20% 15%, color-mix(in srgb, var(--bg-glow-1) 22%, transparent), transparent 55%),
+      radial-gradient(circle at 80% 85%, color-mix(in srgb, var(--bg-glow-2) 18%, transparent), transparent 55%),
+      var(--bg);
+    color:var(--fg);
+    font-family:var(--font-display);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
+  }
+
+  .wrap{
+    padding:2rem;
+    max-width:640px;
+  }
+
+  .signal{
+    width:64px;
+    height:64px;
+    margin:0 auto 2.5rem;
+    position:relative;
+  }
+  .signal span{
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    border:2px solid var(--accent);
+    opacity:0;
+    animation:pulse 2.4s ease-out infinite;
+  }
+  .signal span:nth-child(2){ animation-delay:0.8s; }
+  .signal span:nth-child(3){ animation-delay:1.6s; }
+  .signal::after{
+    content:"";
+    position:absolute;
+    top:50%; left:50%;
+    width:10px; height:10px;
+    background:var(--accent);
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+  }
+  @keyframes pulse{
+    0%{ transform:scale(0.3); opacity:0.8; }
+    100%{ transform:scale(1.6); opacity:0; }
+  }
+
+  h1{
+    font-size:clamp(1.8rem, 5vw, 2.6rem);
+    font-weight:700;
+    letter-spacing:-0.02em;
+    margin-bottom:0.75rem;
+  }
+
+  p.status{
+    font-size:1rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .signal span{ animation:none; opacity:0.4; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="wrap">
+    <div class="signal">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <h1 id="company"></h1>
+    <p class="status">Launching soon</p>
+  </div>
+
+  <script>
+    // Pulls the company name from the CSS variable above so you only
+    // have to edit it in one place.
+    const name = getComputedStyle(document.documentElement)
+      .getPropertyValue('--company-name')
+      .trim()
+      .replace(/^["']|["']$/g, '');
+    document.getElementById('company').textContent = name;
+    document.title = name + " — Coming Soon";
+  </script>
+
+</body>
+</html>
